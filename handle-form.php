@@ -4,7 +4,7 @@
 $date = htmlspecialchars($_POST['date']);
 $time  = htmlspecialchars($_POST['time']);
 $msg = htmlspecialchars($_POST['msg']);
-// ff een testje om te kijken of het werkt op een andere pc
+// okay en dan nu de andere kant op
 
 
 echo  $date, ' ', $time, ' ',$msg;
