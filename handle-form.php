@@ -1,13 +1,31 @@
 <?php
-// The global $_POST variable allows you to access the data sent with the POST method by name
-// To access the data sent with the GET method, you can use $_GET
 $date = htmlspecialchars($_POST['date']);
 $time  = htmlspecialchars($_POST['time']);
 $msg = htmlspecialchars($_POST['msg']);
-// okay en dan nu de andere kant op
 
+//maak een connectie met de database
+$db = mysqli_connect(
+    'localhost',
+    'root',
+    '',
+    'db_website'
+);
 
-echo  $date, ' ', $time, ' ',$msg;
+$sql = "INSERT INTO website (id, date, message)
+    VALUES(
+        ' ',
+        '$date $time',
+        '$msg'
+    )";
+
+if (mysqli_query($db, $sql)) {
+    echo "Uw afspraak is ingeplanned!";
+} else {
+    echo "Helaas, dit tijdsvak is al bezet.";
+}
+
+mysqli_close($db);
+
 ?>
 
 

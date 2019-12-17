@@ -12,8 +12,8 @@ $time_now = date("H:i");
     <link rel="stylesheet" href="styling.css">
 </head>
 <body>
-<h1>test form</h1>
-<form action="/PRG02/website/handle-form.php" method="post">
+<h1>Maak hier uw afspraak</h1>
+<form action="/website/handle-form.php" method="post">
         <div>
             <label for="date">Datum</label>
             <input type="date" id="date" name="date"
@@ -21,17 +21,18 @@ $time_now = date("H:i");
             min= "<?= $date_now; ?>" max= "<?= $date_then; ?>">
         </div>
         <div>
-            <label for="time">tijdstip</label>
+            <label for="time">Tijdstip</label>
             <input type="time" id="time" name="time"
             value= "<?= $time_now; ?>"
             min="08:00" max="20:00" step="900">
         </div>
         <div>
             <label for="message">Bericht</label>
-            <textarea id="message" name="msg">Vul hier eventueel een bericht toe.</textarea>
+            <textarea id="msg" name="msg">Vul hier eventueel een bericht toe.</textarea>
         </div>
-        <div class="button">
+        <div class= cbutton>
             <button type="submit">Verstuur je aanvraag</button>
 </form>
+<a href="login.php">login</a>
 </body>
 </html>
