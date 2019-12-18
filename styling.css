@@ -1,3 +1,19 @@
+.aform {
+    margin-right: 50px;
+    width:0px;
+    padding: 0em;
+    border: 0px solid #CCC;
+    border-radius: 0em;
+}
+
+.bform {
+    margin-right: 200px;
+    width: 0px;
+    padding: 0em;
+    border: 0px solid #CCC;
+    border-radius: 0em;
+}
+
 h1 {
     text-align: center;
 }

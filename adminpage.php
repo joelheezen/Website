@@ -1,4 +1,11 @@
 <?php
+session_start();
+if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+    echo "Welcome to the member's area, " . $_SESSION['username'] . "!";
+} else {
+    echo "Please log in first to see this page.";
+    exit;
+}
 
 $db = mysqli_connect(
     'localhost',
@@ -36,7 +43,7 @@ mysqli_close($db);
     <?php
     foreach ($website as $website) { ?>
 
-        <li><?= $website['id'] ?> <?= $website['date'] ?> <?= $website['message']?></li>
+        <li><?= $website['id'] ?> <?= $website['date'] ?> <?= $website['message']?> <?= $website['name']?> <?= $website['email']?> <?= $website['phone']?></li>
 
     <?php } ?>
 </ul>

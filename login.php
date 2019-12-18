@@ -1,19 +1,33 @@
 <?php
 session_start();
+
+$conn = mysqli_connect(
+    'localhost',
+    'root',
+    '',
+    'db_website'
+);
 //Check if post isset
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    //Tip: make this way more secure!
+
+    $hashedpass = hash('sha3-512', $password);
+    $getpass = mysqli_fetch_assoc(mysqli_query($conn, "SELECT password FROM pass WHERE username = '$email'"));
+    $sqlpass= $getpass['password'];
+
     if ($email == "" || $password == "") {
         $error = "Vul beide gegevens in";
-    } elseif ($email != "moora@hr.nl" || $password != "test") {
+    } elseif ($hashedpass != $sqlpass) {
         $error = "Combinatie gebruikersnaam/wachtwoord onjuist";
     }
     if (!isset($error)) {
-        $_SESSION['login'] = $email;
+        $_SESSION['login'] = true;
+        $_SESSION['username'] = $email;
     }
 }
+mysqli_close($conn);
+
 //Am I logged in? Please go to secure page
 if (isset($_SESSION['login'])) {
     header("Location: adminpage.php");
