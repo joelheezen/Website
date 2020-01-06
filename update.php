@@ -18,7 +18,8 @@ $website = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
     $website [] = $row;
-}}
+}
+}
 mysqli_close($conn);
 
 ?>
@@ -50,22 +51,22 @@ mysqli_close($conn);
     if (isset($_POST['submit'])){
         foreach ($website as $website) { ?>
 
-            <li><?= $website['date'] ?> <?= $website['message']?> <?= $website['name']?> <?= $website['email']?> <?= $website['phone']?> <form class= "bform" action="" method="post"><button type="submit" name="delete">verwijderen</button></form></li>
-            <?php
-                if (isset($_POST['delete'])){
-                    $conn = mysqli_connect(
-                        'localhost',
-                        'root',
-                        '',
-                        'db_website'
-                    );
-                    $delete = "DELETE * FROM website WHERE 'id' = '$website('id')'";
-                    $final = mysqli_query($conn, $delete)
-                    or die('error ' . mysqli_error($conn) . ' with query ' . $delete);
-                    mysqli_close($conn);
-                }
-            ?>
+            <li><?= $website['date'] ?> <?= $website['message']?> <?= $website['name']?> <?= $website['email']?> <?= $website['phone']?> <form class= "bform" action="" method="get"><button type="submit" name="delete" value="'.$row['id'].'">verwijderen</button></form></li>
     <?php }} ?>
+    <?php
+    if (isset($_GET['delete'])){
+        $conn = mysqli_connect(
+            'localhost',
+            'root',
+            '',
+            'db_website'
+        );
+        $delete = "DELETE FROM website WHERE id = 'value'";
+        $final = mysqli_query($conn, $delete)
+        or die('error ' . mysqli_error($conn) . ' with query ' . $delete);
+        mysqli_close($conn);
+    }
+    ?>
 </ul>
 </body>
 </html>
