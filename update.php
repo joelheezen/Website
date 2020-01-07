@@ -50,7 +50,7 @@ mysqli_close($conn);
     if (isset($_POST['submit'])){
         foreach ($website as $website) { ?>
 
-            <li><?= $website['date'] ?> <?= $website['message']?> <?= $website['name']?> <?= $website['email']?> <?= $website['phone']?> <form class= "bform" action="" method="post"><button type="submit" name="delete">verwijderen</button></form></li>
+            <li><?= $website['date'] ?> <?= $website['message']?> <?= $website['name']?> <?= $website['email']?> <?= $website['phone']?> <form class= "bform" action="/website/updatehandler.php" method="post"><button type="submit" name="delete">verwijderen</button></form></li>
             <?php
                 if (isset($_POST['delete'])){
                     $conn = mysqli_connect(
