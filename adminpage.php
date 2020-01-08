@@ -78,7 +78,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'update' && isset($_GET['websit
         <ul>
             <?php foreach ($websites as $website): ?>
                 <li>
-                    <span><?php echo $website['date'] ?> <?php echo $website['message']?> <?php echo $website['name']?> <?php echo $website['email']?> <?php echo $website['phone'] ?></span>
+                    <span><?php echo $website['id'] ?> <?php echo $website['date'] ?> <?php echo $website['message']?> <?php echo $website['name']?> <?php echo $website['email']?> <?php echo $website['phone'] ?></span>
                     <a href="?action=delete&website=<?php echo $website['id']; ?>" onclick="return confirm('Weet je zeker dat je deze afspraak wilt verwijderen? Dit kan niet meer ongedaan worden gemaakt!')">verwijderen</a>
                     <a href="?action=update&website=<?php echo $website['id']; ?>">update</a>
                         <form action="/website/updatehandler.php" style="<?=$hidden?>" method="post">
