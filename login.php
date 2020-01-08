@@ -61,5 +61,6 @@ if (isset($_SESSION['login'])) {
         <input type="submit" name="submit" value="Login"/>
     </div>
 </form>
+<a href="main.php">terug</a>
 </body>
 </html>

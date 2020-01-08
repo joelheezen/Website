@@ -25,7 +25,8 @@ $sql = "INSERT INTO website (id, date, message, name, email, phone)
     )";
 
 if (mysqli_query($db, $sql)) {
-    echo "Uw afspraak is ingeplanned!";
+    echo "Uw afspraak is ingeplanned! Je wordt automatisch teruggeleid.";
+    header("Refresh:5; url=main.php");
 } else {
     echo "Helaas, dit tijdsvak is al bezet.";
 }

@@ -1,72 +1,82 @@
 <?php
-$conn = mysqli_connect(
-    'localhost',
-    'root',
-    '',
-    'db_website'
-);
-//Check if post isset
-if (isset($_POST['submit'])) {
-    $email = $_POST['email'];
 
-    $query = "SELECT * FROM website WHERE email = '$email'";
 
-$result = mysqli_query($conn, $query)
-or die('error ' . mysqli_error($conn) . ' with query ' . $query);
+/**
+ * Database connnectie het beste in een aparte file doen en deze includen in de files waar je die nodig hebt.
+ * (of werken met autoloading via composer)
+ *
+ * include database.php
+ */
 
-$website = [];
+// init vars
+$websites = [];
+$databaseConnection = null;
 
-while ($row = mysqli_fetch_assoc($result)) {
-    $website [] = $row;
+try {
+    $databaseConnection = new PDO('mysql:host=localhost;dbname=db_website', 'root', '');
+} catch (PDOException $e) {
+    print 'Error!: ' . $e->getMessage();
+    exit; // dit om de pagina te stoppen als je geen connectie hebt verkegen.
 }
+
+/**
+ * Alle PHP code boven aan de pagina gezet zodat het beter leesbaar is.
+ */
+
+// controle of er een formulier gepost is
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['submit']) && isset($_POST['email'])) {
+        $stmt = $databaseConnection->prepare("SELECT * FROM website WHERE email = :email");
+        $stmt->execute(['email' => $_POST['email']]);
+        $websites = $stmt->fetchAll(); // dit doet onderwater een fetch assoc maar zorgt ook voor query escaping
+    }
 }
-mysqli_close($conn);
+
+// controle of er een delete actie is
+if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['website'])) {
+    $databaseConnection->query("DELETE FROM website WHERE id = " . (int) $_GET['website']);
+}
 
 ?>
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="styling.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Uw afspraken</title>
+        <link rel="stylesheet" href="styling.css">
+    </head>
 <body>
-<h1>Login</h1>
+    <div class="container">
+        <h1>Voer uw email in</h1>
 
-<?php if (isset($error)) { ?>
-    <p><?= $error; ?></p>
-<?php } ?>
+        <?php if (isset($error)): ?>
+        <p><?php echo $error; ?></p>
+        <?php endif; ?>
 
-<form method="post" action="<?= $_SERVER['REQUEST_URI']; ?>">
-    <div>
-        <label for="email">E-mail</label>
-        <input id="email" type="email" name="email"/>
+        <?php
+        // request uri uit de action gehaald omdat deze te manipuleren is en daardoor hackable.
+        ?>
+        <form method="post" action="">
+            <div>
+                <label for="email">E-mail</label>
+                <input id="email" type="email" name="email"/>
+            </div>
+            <div class="button">
+                <input type="submit" name="submit" value="Search" />
+            </div>
+        </form>
+
+        <div class="list">
+            <ul>
+                <?php foreach ($websites as $website): ?>
+                <li>
+                    <span><?php echo $website['date'] ?> <?php echo $website['message']?> <?php echo $website['name']?> <?php echo $website['email']?> <?php echo $website['phone'] ?></span>
+                    <a href="?action=delete&website=<?php echo $website['id']; ?>" onclick="return confirm('Weet je zeker dat je deze afspraak wilt verwijderen? Dit kan niet meer ongedaan worden gemaakt!')">verwijderen</a>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
     </div>
-    <div class = button>
-        <input type="submit" name="submit" value="Search"/>
-    </div>
-</form>
-<ul>
-    <?php
-    if (isset($_POST['submit'])){
-        foreach ($website as $website) { ?>
-
-            <li><?= $website['date'] ?> <?= $website['message']?> <?= $website['name']?> <?= $website['email']?> <?= $website['phone']?> <form class= "bform" action="" method="get"><button type="submit" name="delete" value="'.$row['id'].'">verwijderen</button></form></li>
-    <?php }} ?>
-    <?php
-    if (isset($_GET['delete'])){
-        $conn = mysqli_connect(
-            'localhost',
-            'root',
-            '',
-            'db_website'
-        );
-        $delete = "DELETE FROM website WHERE id = 'value'";
-        $final = mysqli_query($conn, $delete)
-        or die('error ' . mysqli_error($conn) . ' with query ' . $delete);
-        mysqli_close($conn);
-    }
-    ?>
-</ul>
+<a href="main.php">homepage</a>
 </body>
 </html>
