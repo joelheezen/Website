@@ -1,79 +1,41 @@
-.aform {
-    margin-right: 50px;
+input{
+    font-family:arial, serif;
+    margin-bottom:10px;
+    border-radius:25px;
 }
 
-
-.bform {
-    margin-right: 200px;
+input, textarea{
+    padding-left:5px;
+    alignment:center;
 }
 
-.hiddenform {
-    display:none !important;
+body {
+    text-align:center;
 }
 
-h1 {
-    text-align: center;
-}
-
-form {
-    /* Center the form on the page */
-    margin: 0 auto;
-    width: 400px;
-    /* Form outline */
-    padding: 1em;
-    border: 1px solid #CCC;
-    border-radius: 1em;
-}
-
-form li + li {
-    margin-top: 1em;
+textarea{
+    font-family:arial, serif;
+    width:300px;
+    height:70px;
+    margin-bottom:10px;
+    border-radius:15px;
 }
 
 label {
-    /* Uniform size & alignment */
-
-    width: 90px;
+    font-family: arial, serif;
+    width: 180px;
+    clear: left;
     text-align: right;
+    padding-right: 10px;
 }
 
-input,
-textarea {
-    /* To make sure that all text fields have the same font settings
-       By default, textareas have a monospace font */
-    font: 1em sans-serif;
-
-    /* Uniform text field size */
-    width: 300px;
-    box-sizing: border-box;
-
-    /* Match form field borders */
-    border: 1px solid #999;
+input, label, textarea {
+    float:left;
 }
 
-input:focus,
-textarea:focus {
-    /* Additional highlight for focused elements */
-    border-color: #000;
+button{
+    font-family:arial, serif;
+    border-radius:25px;
 }
 
-textarea {
-    /* Align multiline text fields with their labels */
-    vertical-align: top;
 
-    /* Provide space to type some text */
-    height: 5em;
-}
-
-.button {
-    /* Align buttons with the text fields */
-    padding-left: 94px; /* same size as the label elements */
-}
-
-button {
-    /* This extra margin represent roughly the same space as the space
-       between the labels and their text fields */
-    margin-left: .5em;
-}
-.cbutton{
-    padding-left: 87px;
-}

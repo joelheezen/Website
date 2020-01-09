@@ -11,7 +11,7 @@ $time_now = date("H:i");
     <title>Anja's administratiekantoor</title>
     <link rel="stylesheet" href="styling.css">
 </head>
-<form class = "aform" action="login.php">
+<form action="login.php">
     <div class="abutton">
         <button type="submit">Login</button>
     </div>
@@ -45,7 +45,7 @@ $time_now = date("H:i");
         </div>
         <div>
             <label for="phone">Telefoon (*)</label>
-            <input type="number" id="phone" name="phone" required>
+            <input type="tel" pattern="[0-9]{10}" oninvalid="setCustomValidity('Please fill in a 10-digit phone number.')" oninput="setCustomValidity('')" id="phone" name="phone" required>
         </div>
         <div class= cbutton>
             <button type="submit">Verstuur je aanvraag</button>
